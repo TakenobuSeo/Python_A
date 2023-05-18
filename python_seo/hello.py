@@ -24,7 +24,7 @@ class Dinner(Hello):
         self.drink = drink
 
     def today_dinner(self):
-        return "{Name}さんの今晩のご飯は{Food}で、{Drink}を飲みました。".format(self.name, self.food, self.drink)
+        return "{Name}さんの今晩のご飯は{Food}で、{Drink}を飲みました。".format(Name=self.name, Food=self.food, Drink=self.drink)
         
 # Helloクラスのインスタンスを生成
 hello = Hello("こんにちは-----","Kenshin")

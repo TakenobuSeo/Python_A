@@ -11,3 +11,4 @@ print('Hello '+ str(num) +' !')
 
 print('hellohello')
 
+print('git stash のテスト')

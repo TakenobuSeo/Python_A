@@ -3,4 +3,4 @@ args = sys.argv
 
 name = args[1]
 
-print(name)
+print("Hello " + name + " !", end="")

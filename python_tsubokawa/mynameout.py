@@ -8,5 +8,6 @@ num = 30
 # print("Hello, \"World !", end="")
 print('Hello '+ name +' !')
 print('Hello '+ str(num) +' !')
-print(f'hello {name} ABE !')
-print(f'hello {name} ABE !')
+
+print('hellohello')
+

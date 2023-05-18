@@ -9,5 +9,5 @@ class Hello:
         greeting = str(self.hello1) + "～～、" + str(self.name)
         return greeting
 
-hello = Hello("こんにちは","Kenshin")
+hello = Hello("こんにちは-----","Kenshin")
 print(hello.hello_world())

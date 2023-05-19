@@ -7,3 +7,4 @@ num = int(args[1])
 for i in range(1, num+1):
     print('ひつじが',i,'匹')
 #テストです
+#プル陸のテスト

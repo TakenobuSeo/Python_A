@@ -18,4 +18,3 @@ delete = animals.pop(-1)
 animals = sorted(animals)
 
 print(animals)
-print("削除した値は{0}です。".format(delete))

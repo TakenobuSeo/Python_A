@@ -1,4 +1,5 @@
 import sys
 args = sys.argv
-name = args[1]
-list.index(name)+1
+countries = ("China", "India", "U.S.A", "Indonesia", "Pakistan", "Brazil", "Nigeria", "Bangladesh", "Russia", "Mexico")
+num = int(args[1]) - 1
+print(countries[num])

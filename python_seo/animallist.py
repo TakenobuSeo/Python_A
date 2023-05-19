@@ -12,7 +12,7 @@ animals = ["giraffe", "tiger", "zebra", "elephant", "lion"]
 animals.insert(num, animal)
 
 # animalsの末尾を削除
-delete = animals.pop(-1)
+delete_animals_end = animals.pop(-1)
 
 # animalsを昇順に並び替え
 animals = sorted(animals)

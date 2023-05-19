@@ -2,6 +2,7 @@ import sys
 
 args = sys.argv
 
+# 引数の値を足し続けて100になるか100を超えたら出力して終了
 num = int(args[1])
 sum = 0
 while True:

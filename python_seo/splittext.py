@@ -9,7 +9,7 @@ num = int(args[2])
 # 記号の削除
 words = words.replace(".", "")
 words = words.replace(",", "")
-words = words.replace("'", "")
+# words = words.replace("'", "")
 
 # 単語ごとに分け、それをリストにする
 words = words.split()

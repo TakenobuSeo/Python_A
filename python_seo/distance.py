@@ -1,4 +1,5 @@
 import sys
+import math
 
 args = sys.argv
 
@@ -15,11 +16,13 @@ stations = {
 long1 = stations[sta1]
 long2 = stations[sta2]
 
+distance = round(math.fabs(long1 - long2), 2)
+
 # 2つの引数をlongリストに代入
-long = [long1, long2]
+#long = [long1, long2]
 
 # longを降順で並び替えて、少数点第3位以下を四捨五入
-long = sorted(long, reverse=True)
-distance = round(long[0] - long[1], 2)
+#long = sorted(long, reverse=True)
+#distance = round(long[0] - long[1], 2)
 
 print(distance, end="")

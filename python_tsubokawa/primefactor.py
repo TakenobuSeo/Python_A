@@ -7,6 +7,7 @@
 input_num = 8
 # 素因数分解の結果を格納する配列
 output_list = []
+
 for i in range(2,input_num):
     if input_num % i == 0: #割り切れるとき
         output_list.append(i)

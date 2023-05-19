@@ -16,4 +16,4 @@ words = words.split()
 
 # n番目の単語を出力
 word = words[num-1]
-print(word)
+print(word, end="")

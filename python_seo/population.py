@@ -10,4 +10,4 @@ contries = (
         "Brazil", "Nigeria", "Bangladesh", "Russia", "Mexico")
 
 # 引数の要素番号に当たるタプルの値を出力
-print(contries[num])
+print(contries[num-1])

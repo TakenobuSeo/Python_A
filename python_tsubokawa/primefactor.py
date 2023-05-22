@@ -1,26 +1,34 @@
+#素因数分解を行うプログラム
+
 # import sys
 # args = sys.argv
 
-# num = int(args[1])
+# divided_num = int(args[1])
 
 
-input_num = 8
+
+#デバッグ用
+divided_num = 2023
 # 素因数分解の結果を格納する配列
 output_list = []
 
-for i in range(2,input_num):
-    if input_num % i == 0: #割り切れるとき
-        output_list.append(i)
-        input_num = input_num / i
-        print(input_num)
-        # for j in range(2, devided_num):
-        #     if devided_num % j == 0:
-        #         output_list.append(j)
-        #         dev
-        # div_num = num / i
-        # if(div_num==num):
-        #     output_list.append(i)
-print(output_list)
+# 割られる数が１になるまでループ
+while divided_num != 1:
 
-# start_num = 2
-# while(start_num<num):
+# 2から割られる数自体までループ
+# divided_num + 1しないと割られる数自体で割ってくれない
+    for div_num in range(2,divided_num+1):
+        #割り切れたら（約数ならば）
+        if divided_num % div_num == 0:
+            #約数を配列に保存
+            output_list.append(div_num)
+            #解がfloatになるのでintに変換
+            divided_num = int(divided_num/div_num)
+            break #forを抜ける
+            
+#解の出力
+print(output_list, end="")
+
+
+
+

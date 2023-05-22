@@ -14,4 +14,3 @@ if input == 'cancel':
 
 else:
     input_money = int(input)
-    

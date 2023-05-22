@@ -10,3 +10,4 @@ class Intro:
     def age_out(self):
         agetxt = "年齢は、" + self.age + "歳です"
         return agetxt
+    

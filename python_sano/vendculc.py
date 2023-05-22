@@ -80,7 +80,7 @@ if money != 0:
     
     # 単位が札か玉かを返す
     def get_change_unit_name(num: int) -> bool:
-        if num > 1000:
+        if num >= 1000:
             return "札"
         else:
             return "玉"

@@ -1,9 +1,11 @@
 
-item_prices = {"お茶":110, "コーヒー":100, "ソーダ":160, "コーンポタージュ":130}
-
 # 商品の一覧を出力
-for key in  item_prices.keys():
-    print(f"{key}:{item_prices[key]}円")
+def print_items(items):
+    for key in  items.keys():
+        print(f"{key}:{items[key]}円")
+
+item_prices = {"お茶":110, "コーヒー":100, "ソーダ":160, "コーンポタージュ":130}
+print_items(item_prices)
 
 # 投入金額のループ
 while True:
@@ -34,7 +36,8 @@ while True:
 while True:
     purchase_item = input("何を購入しますか（商品名/cancel）")
 
-    if  purchase_item =="cancel":
+    # cancel入力の場合、お釣りを出して終了
+    if purchase_item =="cancel":
         break
 
     # 商品購入チェック、最初に戻る
@@ -53,6 +56,8 @@ while True:
     if money < min(item_prices.values()):
         break
 
+    print(f"残金：{money}円")
+
     # YかNを入力するまで訊く
     is_continue = input("続けて購入しますか（Y/N）")
     while is_continue not in ['Y', 'N']:
@@ -61,6 +66,7 @@ while True:
 
     # 商品購入に戻る
     if is_continue == 'Y':
+        print_items(item_prices)
         continue
     # お釣りを出力して終了
     elif is_continue == 'N':

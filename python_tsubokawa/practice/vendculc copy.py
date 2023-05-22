@@ -86,13 +86,18 @@ while flg:
 
         # 最安価格よりも投入金額が大きい場合
         if min_price <= input_money: 
+            # print('購入可能です')
+            # print(input_text[-1])
             
             # 1円玉か５円玉を投入していないか判定
             if input_text[-1] != '0':
                 print('１円玉、５円玉は使用できません。再度投入金額を入力してください')
             else:
                 buyItems()
-
+                # buy_item = input('購入する商品を入力してください')
+                # buy_item_price = vend_item[buy_item]
+                # input_money -= buy_item_price
+                # print(f'残金:{input_money}円')
 
                 # 残金が０円か判定し、０円でない限り繰り返す
                 while input_money != 0 and min_price <= input_money:
@@ -102,13 +107,23 @@ while flg:
 
                     # 続けて購入しない、または、投入金額が少ない場合のお釣りを出す処理
                     else:
-                        print('残金が足りないよ')
+
                         # お釣りを出す処理
                         out_change(input_money)
-
+                        # print('おつり')
+                        # for money in money_array.keys():
+                        #     # print(input_money/money)
+                        #     money_array[money] = math.floor(input_money / money)
+                        #     input_money -= money_array[money] * money 
+                        #     if money_array[money] > 0:
+                        #         print(f'{money}円玉:{money_array[money]}枚')
+                        # print(money_array)
+                        #flgをFalseにすることで大本のループを抜ける
                         flg = False
                         break
-
+                # else:
+                #     continue
+                # break
             
 
                 #残金が足りないので終了

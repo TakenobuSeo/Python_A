@@ -1,11 +1,8 @@
+import vendlib
 
-# 商品の一覧を出力
-def print_items(items):
-    for key in  items.keys():
-        print(f"{key}:{items[key]}円")
 
 item_prices = {"お茶":110, "コーヒー":100, "ソーダ":160, "コーンポタージュ":130}
-print_items(item_prices)
+vendlib.print_items(item_prices)
 
 # 投入金額のループ
 while True:
@@ -49,14 +46,13 @@ while True:
         print("その商品を購入するには金額が足りません")
         continue
 
-    # 購入できる場合
+    # 指定商品を購入できる場合
     money -= item_prices[purchase_item]
+    print(f"残金：{money}円")
     
-    # もう購入できる商品がない場合お釣りを出力して終了
+    # もう購入できる商品がない場合、お釣りを出力して終了
     if money < min(item_prices.values()):
         break
-
-    print(f"残金：{money}円")
 
     # YかNを入力するまで訊く
     is_continue = input("続けて購入しますか（Y/N）")
@@ -66,7 +62,7 @@ while True:
 
     # 商品購入に戻る
     if is_continue == 'Y':
-        print_items(item_prices)
+        vendlib.print_items(item_prices)
         continue
     # お釣りを出力して終了
     elif is_continue == 'N':
@@ -74,21 +70,6 @@ while True:
 
 
 # 終了処理
-# 残金があるならお釣りを出力する
+# 残金があればお釣りを出力
 if money != 0:
-    change_units = [5000, 2000, 1000, 500, 100, 50, 10]
-    
-    # 単位が札か玉かを返す
-    def get_change_unit_name(num: int) -> bool:
-        if num >= 1000:
-            return "札"
-        else:
-            return "玉"
-    
-    # おつりの内容を出力する
-    print("おつり")
-    for change in change_units:
-        refund_num = money // change
-        if refund_num > 0:
-            print(f"{change}円{get_change_unit_name(change)}:{refund_num}枚")
-            money %= change
+    vendlib.print_changes(money)

@@ -17,6 +17,7 @@ category_to_food["麺類"] = ("ラーメン", "うどん", "パスタ")
 
 # 値下げする
 for food in category_to_food[price_down_category]:
+    # 1円未満にならないよう値下げする
     prices[food] = max(prices[food] - down_price, 1)
 
 print(prices, end="")

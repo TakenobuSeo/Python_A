@@ -19,6 +19,7 @@ money_array = {
 }
 
 flg = True
+# flg2 = True
 min_price = 10000
 
 for price in vend_item:
@@ -65,26 +66,71 @@ while flg:
         print('１円玉、５円玉は使用できません。再度投入金額を入力してください')
         continue
     else:
-        buy_item = input('何を購入しますか（商品名/cancel）')
-        if buy_item == 'cancel':
-            out_change(input_money)
-            break
-        else:
-            buyItem(buy_item)
-            #以下コピペ
-            while input_money != 0 and min_price <= input_money:
-                    is_continue = input('続けて購入しますか(Y/N)')
-                    if is_continue == 'Y':
-                        buyItem()
+        while True:
+            buy_item = input('何を購入しますか（商品名/cancel）')
+            if buy_item == 'cancel':
+                out_change(input_money)
+                # flg= Falseにすることで一番外のwhileを抜ける
+                flg = False
+                break
+            
+            #入力した文字が商品内にあるのかの判定
+            is_item = False
+            for item_name in vend_item.keys():
+                if buy_item == item_name:
+                    is_item = True
 
-                    # 続けて購入しない、または、投入金額が少ない場合のお釣りを出す処理
+
+            #購入する商品を選択
+            if is_item:
+                # buyItem(buy_item)
+
+                buy_item_price = vend_item[buy_item]
+        # 投入金額が買いたい値段よりも高いか判定
+                if input_money >= buy_item_price:
+                    #購入した分だけ金額を引く
+                    input_money -= buy_item_price
+                    print(f'残金:{input_money}円')
+                    if input_money != 0 and min_price <= input_money:
+                        is_continue = input('続けて購入しますか(Y/N)')
+                        if is_continue == 'Y':
+                            continue
+                        else:
+                            out_change(input_money)
+                            flg = False
+                            break
                     else:
-                        print('残金が足りないよ')
-                        # お釣りを出す処理
+                        print('残金が足りません。お釣りを出します')
                         out_change(input_money)
-
                         flg = False
                         break
+                else:
+                    #商品の金額よりも投入金額が小さい場合
+                    print('金額が足りません')
+                    print('商品を選択しなおしてください')
+                    continue
+            
+            else:
+                print('存在しない商品です')
+                print('入力しなおしてください')
+                continue
+
+
+            # #以下コピペ
+            # #所持金が最安価格よりも高い場合
+            # while input_money != 0 and min_price <= input_money:
+            #         is_continue = input('続けて購入しますか(Y/N)')
+            #         if is_continue == 'Y':
+            #             buyItem()
+
+            #         # 続けて購入しない、または、投入金額が少ない場合のお釣りを出す処理
+            #         else:
+            #             print('残金が足りないよ')
+            #             # お釣りを出す処理
+            #             out_change(input_money)
+
+            #             flg = False
+            #             break
             
 
 

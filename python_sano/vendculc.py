@@ -48,12 +48,13 @@ while True:
 
     # 指定商品を購入できる場合
     money -= item_prices[purchase_item]
-    print(f"残金：{money}円")
     
     # もう購入できる商品がない場合、お釣りを出力して終了
     if money < min(item_prices.values()):
         break
 
+    print(f"残金：{money}円")
+    
     # YかNを入力するまで訊く
     is_continue = input("続けて購入しますか（Y/N）")
     while is_continue not in ['Y', 'N']:

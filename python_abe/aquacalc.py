@@ -1,9 +1,6 @@
 import datetime
 from datetime import date
-
-import pandas as pd
 import sys
-import math
 args = sys.argv
 date_today = args[1]
 adult_num = int(args[2])

@@ -20,13 +20,20 @@ d = int(day[6:])
 dt = date(y, m, d)
 #dt = datetime.date(2022, 6, 4)
 
-#print(dt)
-dt_test = Attendnum.date.count(dt) + 1
- # 同じ日付がいくつあるか
+#print(session.query(Attendnum.date).all())
+print(dt)
+dt_test = session.query(Attendnum).filter_by(entry_date=dt).count() + 1
 print(dt_test)
+ # 同じ日付がいくつあるか
+
+#print(dt_test)
 aquaattend = Attendnum(
-     entry_date = dt,
-     seq = dt_test,
-     adult = ad_num,
-     child = ch_num
- )
+    entry_date = dt,
+    seq = dt_test,
+    adult = ad_num,
+    child = ch_num
+)
+
+session.add(aquaattend)
+
+session.commit()

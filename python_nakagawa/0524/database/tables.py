@@ -8,12 +8,13 @@ class Holiday(Base):
     holi_date = Column('holi_date', Date, primary_key=True)
     holi_text = Column('holi_text', String(20))
 
-class Attendnum(Base):
-    __tablename__ = 'attendnum'
+#主キーをentry_dateとseqの組み合わせに
+class AttendnumKey(Base):
+    __tablename__ = 'attendnumkey'
     entry_date = Column('entry_date', Date, primary_key=True)
-    seq = Column('seq', Integer)
+    seq = Column('seq', Integer, primary_key=True)
     adult = Column('adult', Integer)
-    child = Column('adult', Integer)
+    child = Column('child', Integer)
 
 def main(args):
     Base.metadata.create_all(bind = ENGINE)

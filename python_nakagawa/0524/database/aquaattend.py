@@ -3,7 +3,7 @@ args = sys.argv
 from datetime import datetime
 from datetime import date
 from database import session
-from tables import Attendnum
+from tables import AttendnumKey
 
 date = args[1]
 adultNum = int(args[2])
@@ -14,12 +14,12 @@ day = dt.date()
 print(day)
 
 # 日付が同じデータを取得
-entryDateNum = session.query(Attendnum).filter(Attendnum.entry_date==day).count()
+entryDateNum = session.query(AttendnumKey).filter(AttendnumKey.entry_date==day).count()
 print(entryDateNum)
 
-data = Attendnum(
+data = AttendnumKey(
     entry_date = day,
-    seq = entryDateNum +1,
+    seq = int(entryDateNum) +1,
     adult = adultNum,
     child = childNum
 )

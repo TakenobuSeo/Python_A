@@ -1,10 +1,6 @@
-import vendlib
-from datetime import datetime
-from database import session
-from tables import MstMerchadise, TblStock, TblMoney, TblMessage
+import vendlibdb
 
-item_prices = {"お茶":110, "コーヒー":100, "ソーダ":160, "コーンポタージュ":130}
-vendlib.print_items(item_prices)
+ITEMS_AVAILABLE = vendlibdb.renew_available_items()
 
 # 投入金額のループ
 while True:
@@ -17,7 +13,7 @@ while True:
             print("10,000円を超える金額は投入できません。再度投入金額を入力してください")
             continue
 
-        if money < min(item_prices.values()):
+        if money < vendlibdb.get_lowest_price():
             print(f"{money}円では購入できる商品がありません。再度投入金額を入力してください")
             continue
 
@@ -31,6 +27,8 @@ while True:
         print("投入金額は整数で入力してください")
     
 
+vendlibdb.store_change(money)
+
 # 商品購入のループ
 while True:
     purchase_item = input("何を購入しますか（商品名/cancel）")
@@ -40,19 +38,20 @@ while True:
         break
 
     # 商品購入チェック、最初に戻る
-    if purchase_item not in item_prices.keys():
+    if purchase_item not in ITEMS_AVAILABLE.keys():
         print("その商品名の商品は販売していません")
         continue
     
-    if money < item_prices[purchase_item]:
+    if money < ITEMS_AVAILABLE[purchase_item]:
         print("その商品を購入するには金額が足りません")
         continue
 
     # 指定商品を購入できる場合
-    money -= item_prices[purchase_item]
+    money -= ITEMS_AVAILABLE[purchase_item]
+    vendlibdb.buy_item(purchase_item)
     
     # もう購入できる商品がない場合、お釣りを出力して終了
-    if money < min(item_prices.values()):
+    if money < vendlibdb.get_lowest_price():
         break
 
     print(f"残金：{money}円")
@@ -65,7 +64,7 @@ while True:
 
     # 商品購入に戻る
     if is_continue == 'Y':
-        vendlib.print_items(item_prices)
+        ITEMS_AVAILABLE = vendlibdb.renew_available_items()
         continue
     # お釣りを出力して終了
     elif is_continue == 'N':
@@ -75,4 +74,4 @@ while True:
 # 終了処理
 # 残金があればお釣りを出力
 if money != 0:
-    vendlib.print_changes(money)
+    vendlibdb.pay_out_change(money)

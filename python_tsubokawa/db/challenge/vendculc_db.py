@@ -1,5 +1,5 @@
 import math
-
+import funcs_vend as funcs
 
 vend_item = {
     "お茶" : 110,
@@ -27,6 +27,7 @@ for price in vend_item:
     if vend_item[price] < min_price:
         min_price = vend_item[price]
 
+show_stock = funcs.show_stock
 
 def out_change(input_money):
     global money_array
@@ -54,8 +55,12 @@ def buyItem(buy_item):
 
 while flg:
 
-    for item_name in vend_item.keys():
-        print(f'{item_name}:{vend_item[item_name]}円')
+    # for item_name in vend_item.keys():
+    #     print(f'{item_name}:{vend_item[item_name]}円')
+    
+    #在庫がある商品を表示するプログラム
+    show_stock()
+    
     input_money = int(input("投入金額を入力してください"))
 
 

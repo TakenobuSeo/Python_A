@@ -4,75 +4,93 @@ from datetime import datetime
 from database import session
 from prchasesales_tables import MstHinmoku, TblZaiko
 
+class ID():
+    id: str
 
-def registration_item(args) -> None:
-    '''品目データを登録する'''
-    ID = args[2]
-    NAME = args[3]
+    def __init__(self, id):
+        self.id = id
 
-    item = len(session.query(MstHinmoku).filter_by(id=ID).all())
-    if item > 0:
-        print(f"品目マスタに{ID}は登録済みです")
-        return
-    
-    hinmoku = MstHinmoku(
-        id = ID,
-        name = NAME
-    )
+class Hinmoku(ID):
+    name:str
 
-    session.add(hinmoku)
-    session.commit()
-    print(f"品目マスタに{ID}, {NAME}を登録しました")
+    def __init__(self, id: str, name: str):
+        super().__init__(id)
+        self.name = name
 
+    def registration_item(self) -> None:
+        '''品目データを登録する'''
 
-def process_arrival(args) -> None:
-    '''仕入れデータを登録する'''
-    ID = args[2]
-    UNIT = args[3]
-    UNIT_PRICE = int(args[4])
-    ARRIVALSTOCK = int(args[5])
+        item = len(session.query(MstHinmoku).filter_by(id=self.id).all())
+        if item > 0:
+            print(f"品目マスタに{self.id}は登録済みです")
+            return
+        
+        hinmoku = MstHinmoku(
+            id = self.id,
+            name = self.name
+        )
 
-    CURRENT_STOCK = session.query(TblZaiko.stock).filter_by(id=ID).first()[0]
-    if not CURRENT_STOCK:
-        CURRENT_STOCK = 0
+        session.add(hinmoku)
+        session.commit()
+        print(f"品目マスタに{self.id}, {self.name}を登録しました")
 
-    zaiko = TblZaiko(
-        id = ID,
-        unit = UNIT,
-        unitprice = UNIT_PRICE,
-        stock = CURRENT_STOCK + ARRIVALSTOCK
-    )
+class Transaction(ID):
+    unit: str
+    unit_price: int
+    change_stock_num: int
 
-    session.add(zaiko)
-    session.commit()
-    print(f"品目{ID}（単価：{UNIT_PRICE}円）を{ARRIVALSTOCK}{UNIT}仕入れました")
+    def __init__(self, id: str, unit: str, unit_price: int, change_stock: int):
+        super().__init__(id)
+        self.unit = unit
+        self.unit_price = unit_price
+        self.change_stock_num = change_stock
 
-def process_sales(args):
-    '''売上データを登録する'''
+    def get_current_zaiko(self) -> TblZaiko:
+        '''自身の商品IDの現在のデータを返す'''
+        current_zaiko = session.query(TblZaiko).filter_by(id=self.id, unit=self.unit, unitprice=self.unit_price).first()
+        return current_zaiko
+        
 
-    ID = args[2]
-    UNIT = args[3]
-    UNIT_PRICE = int(args[4])
-    SALED_STOCK = int(args[5])
+    def process_arrival(self) -> None:
+        '''仕入れデータを登録する'''
 
-    zaiko = session.query(TblZaiko).filter_by(id=ID, unit=UNIT, unitprice = UNIT_PRICE).first()
-    CURRENT_STOCK = zaiko.stock
-    
-    if not CURRENT_STOCK:
-        CURRENT_STOCK = 0
+        zaiko = self.get_current_zaiko()
+        if zaiko:
+            zaiko.stock = zaiko.stock + self.change_stock_num
+        else:
+            zaiko = TblZaiko(
+            id = self.id,
+            unit = self.unit,
+            unitprice = self.unit_price,
+            stock = self.change_stock_num
+        )
 
-    if SALED_STOCK > CURRENT_STOCK:
-        print("売上数量に対して在庫が足りません。在庫を確認してください")
-        return
+        session.add(zaiko)
+        session.commit()
+        print(f"品目{self.id}（単価：{self.unit_price}円）を{self.change_stock_num}{self.unit}仕入れました")
 
-    zaiko.stock = CURRENT_STOCK - SALED_STOCK
+    def process_sales(self):
+        '''売上データを登録する'''
 
-    session.add(zaiko)
-    session.commit()
-    print(f"品目{ID}（単価：{UNIT_PRICE}円）を{SALED_STOCK}{UNIT}売上げました")
+        zaiko = self.get_current_zaiko()
+        if not zaiko:
+            print("その商品は存在しません。在庫を確認してください")
+            return
+
+        CURRENT_STOCK = zaiko.stock
+
+        if self.change_stock_num > CURRENT_STOCK:
+            print("売上数量に対して在庫が足りません。在庫を確認してください")
+            return
+
+        zaiko.stock = CURRENT_STOCK - self.change_stock_num
+
+        session.add(zaiko)
+        session.commit()
+        print(f"品目{self.id}（単価：{self.unit_price}円）を{self.change_stock_num}{self.unit}売上げました")
 
 def print_all_zaiko():
-    zaiko = session.query(TblZaiko.id, MstHinmoku.name, TblZaiko.stock, TblZaiko.unit, TblZaiko.unitprice).join(MstHinmoku, MstHinmoku.id == TblZaiko.id).all()
+    zaiko = session.query(TblZaiko.id, MstHinmoku.name, TblZaiko.stock, TblZaiko.unit, TblZaiko.unitprice).join(MstHinmoku, MstHinmoku.id == TblZaiko.id).filter(TblZaiko.stock > 0).all()
     for item in zaiko:
         print(f"品目{item.id}（{item.name}）の在庫：{item.stock}{item.unit}（単価：{item.unitprice}円）")
 
@@ -84,11 +102,14 @@ def main(args):
     mode = args[1]
 
     if mode == "1":
-        return registration_item(args)
+        hinmoku = Hinmoku(args[2], args[3])
+        return hinmoku.registration_item()
     elif mode == "2":
-        return process_arrival(args)
+        transaction = Transaction(args[2], args[3], int(args[4]), int(args[5]))
+        return transaction.process_arrival()
     elif mode == "3":
-        return process_sales(args)
+        transaction = Transaction(args[2], args[3], int(args[4]), int(args[5]))
+        return transaction.process_sales()
     elif mode == "4":
         return print_all_zaiko()
 

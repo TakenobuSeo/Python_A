@@ -1,6 +1,4 @@
 import sys
-from datetime import date
-from datetime import datetime
 from database import session
 from prchasesales_tables import MstHinmoku, TblZaiko
 

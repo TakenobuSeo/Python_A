@@ -28,6 +28,7 @@ def store_change(money: int) -> None:
     for record in CHANGE_RECORDS:
         change_number = money // record.price
 
+        # その種類のお釣りがある場合
         if change_number > 0:
             record.number += change_number
             money %= record.price
@@ -51,12 +52,14 @@ def pay_out_change(money: int) -> None:
     for record in CHANGE_RECORDS:
         change_number = money // record.price
 
+        # その種類のお釣りがある場合
         if change_number > 0:
             record.number -= change_number
             money %= record.price
             session.add(record)
             print(f"{record.price}円{get_change_unit_name(record.price)}:{change_number}枚")
 
+            # 釣銭が残り少ないことをtbl_messageに通知
             if record.number <= 10:
                 message = TblMessage(
                     seq = SEQ,

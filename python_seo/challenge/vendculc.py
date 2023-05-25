@@ -1,39 +1,3 @@
-def change(money):
-    print("おつり")
-    otsuri = money
-    otsuri_5000 = otsuri // 5000
-    otsuri = otsuri % 5000
-    otsuri_2000 = otsuri // 2000
-    otsuri = otsuri % 2000
-    otsuri_1000 = otsuri // 1000                    
-    otsuri = otsuri % 1000
-    otsuri_500 = otsuri // 500
-    otsuri = otsuri % 500
-    otsuri_100 = otsuri // 100
-    otsuri = otsuri % 100
-    otsuri_50 = otsuri // 50                        
-    otsuri = otsuri % 50
-    otsuri_10 = otsuri // 10
-                    
-    if otsuri_5000 != 0:
-        print("5000円:{otsuri}枚".format(otsuri=otsuri_5000))
-    if otsuri_2000 != 0:                           
-        print("2000円:{otsuri}枚".format(otsuri=otsuri_2000))
-    if otsuri_1000 != 0:
-        print("1000円:{otsuri}枚".format(otsuri=otsuri_1000))
-    if otsuri_500 != 0:
-        print("500円:{otsuri}枚".format(otsuri=otsuri_500))
-    if otsuri_100 != 0:
-        print("100円:{otsuri}枚".format(otsuri=otsuri_100))           
-    if otsuri_50 != 0:
-        print("50円:{otsuri}枚".format(otsuri=otsuri_50))
-    if otsuri_10 != 0:
-        print("10円:{otsuri}枚".format(otsuri=otsuri_10)) 
-
-
-
-
-
 vend = {"お茶":110, "コーヒー":100, "ソーダ":160, "コーンポタージュ":130}
 
 
@@ -78,12 +42,70 @@ while True:
                     if c_buy == "Y":
                         continue
                     else:
-                        change(money)
+                        print("おつり")
+                        otsuri = money
+                        otsuri_5000 = otsuri // 5000
+                        otsuri = otsuri % 5000
+                        otsuri_2000 = otsuri // 2000
+                        otsuri = otsuri % 2000
+                        otsuri_1000 = otsuri // 1000                    
+                        otsuri = otsuri % 1000
+                        otsuri_500 = otsuri // 500
+                        otsuri = otsuri % 500
+                        otsuri_100 = otsuri // 100
+                        otsuri = otsuri % 100
+                        otsuri_50 = otsuri // 50                        
+                        otsuri = otsuri % 50
+                        otsuri_10 = otsuri // 10
+                                        
+                        if otsuri_5000 != 0:
+                            print("5000円:{otsuri}枚".format(otsuri=otsuri_5000))
+                        if otsuri_2000 != 0:                           
+                            print("2000円:{otsuri}枚".format(otsuri=otsuri_2000))
+                        if otsuri_1000 != 0:
+                            print("1000円:{otsuri}枚".format(otsuri=otsuri_1000))
+                        if otsuri_500 != 0:
+                            print("500円:{otsuri}枚".format(otsuri=otsuri_500))
+                        if otsuri_100 != 0:
+                            print("100円:{otsuri}枚".format(otsuri=otsuri_100))           
+                        if otsuri_50 != 0:
+                            print("50円:{otsuri}枚".format(otsuri=otsuri_50))
+                        if otsuri_10 != 0:
+                            print("10円:{otsuri}枚".format(otsuri=otsuri_10)) 
                         break
 
 
                 elif money > 0 and money < min(vend.values()):
-                    change(money)
+                    print("おつり")
+                    otsuri = money
+                    otsuri_5000 = otsuri // 5000
+                    otsuri = otsuri % 5000
+                    otsuri_2000 = otsuri // 2000
+                    otsuri = otsuri % 2000                        
+                    otsuri_1000 = otsuri // 1000                    
+                    otsuri = otsuri % 1000
+                    otsuri_500 = otsuri // 500
+                    otsuri = otsuri % 500
+                    otsuri_100 = otsuri // 100
+                    otsuri = otsuri % 100
+                    otsuri_50 = otsuri // 50                        
+                    otsuri = otsuri % 50
+                    otsuri_10 = otsuri // 10
+                                        
+                    if otsuri_5000 != 0:
+                        print("5000円:{otsuri}枚".format(otsuri=otsuri_5000))
+                    if otsuri_2000 != 0:                           
+                        print("2000円:{otsuri}枚".format(otsuri=otsuri_2000))
+                    if otsuri_1000 != 0:
+                        print("1000円:{otsuri}枚".format(otsuri=otsuri_1000))
+                    if otsuri_500 != 0:
+                        print("500円:{otsuri}枚".format(otsuri=otsuri_500))
+                    if otsuri_100 != 0:
+                        print("100円:{otsuri}枚".format(otsuri=otsuri_100))           
+                    if otsuri_50 != 0:
+                        print("50円:{otsuri}枚".format(otsuri=otsuri_50))
+                    if otsuri_10 != 0:
+                        print("10円:{otsuri}枚".format(otsuri=otsuri_10)) 
             
 
                 elif money == 0:

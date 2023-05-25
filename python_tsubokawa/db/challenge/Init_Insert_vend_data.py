@@ -15,13 +15,13 @@ init_stock_data = {
     '3333333333' : 3,
 }
 
-for key in init_stock_data.keys():
-    stock = Stock(
-        id = key,
-        stock = init_stock_data[key]
-    )
+# for key in init_stock_data.keys():
+#     stock = Stock(
+#         id = key,
+#         stock = init_stock_data[key]
+#     )
 
-    session.add(stock)
+#     session.add(stock)
 
 # お金の初期値をinsert
 
@@ -36,13 +36,18 @@ init_money_data = {
     10000 : 0
 }
 
-for key in init_money_data.keys():
-    money = Money(
-        price = key,
-        number = init_money_data[key]
-    )
+# for key in init_money_data.keys():
+#     money = Money(
+#         price = key,
+#         number = init_money_data[key]
+#     )
 
-    session.add(money)
+#     session.add(money)
 
+money = Money(
+    price = 2000,
+    number = 50
+)
+session.add(money)
 
 session.commit()

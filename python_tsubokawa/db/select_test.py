@@ -2,8 +2,8 @@ from database import session
 from tables import Holiday
 from datetime import date
 
-holidaydate = session.query(Holiday.holi_text).filter_by(
-    holi_date=date(2023,1,1)).first()
+holidaydate = len(session.query(Holiday.holi_text).filter_by(
+    holi_date=date(2024,1,1)).all())
 print("------------------------------")
 if holidaydate == None:
     print('平日です')

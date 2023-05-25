@@ -5,12 +5,14 @@ from database import session
 from prchasesales_tables import MstHinmoku, TblZaiko
 
 class ID():
+    '''IDを扱うためのクラス'''
     id: str
 
     def __init__(self, id):
         self.id = id
 
 class Hinmoku(ID):
+    '''品目データを扱うためのクラス'''
     name:str
 
     def __init__(self, id: str, name: str):
@@ -35,6 +37,7 @@ class Hinmoku(ID):
         print(f"品目マスタに{self.id}, {self.name}を登録しました")
 
 class Transaction(ID):
+    '''仕入れデータ、売上テータを扱うためのクラス'''
     unit: str
     unit_price: int
     change_stock_num: int
@@ -90,6 +93,7 @@ class Transaction(ID):
         print(f"品目{self.id}（単価：{self.unit_price}円）を{self.change_stock_num}{self.unit}売上げました")
 
 def print_all_zaiko():
+    '''在庫がある品目について出力する'''
     zaiko = session.query(TblZaiko.id, MstHinmoku.name, TblZaiko.stock, TblZaiko.unit, TblZaiko.unitprice).join(MstHinmoku, MstHinmoku.id == TblZaiko.id).filter(TblZaiko.stock > 0).all()
     for item in zaiko:
         print(f"品目{item.id}（{item.name}）の在庫：{item.stock}{item.unit}（単価：{item.unitprice}円）")

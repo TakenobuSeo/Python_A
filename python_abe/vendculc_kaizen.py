@@ -1,23 +1,24 @@
 drinks = {"お茶": 110, "コーヒー": 100, "ソーダ": 160, "コーンポタージュ": 130}
-for k,v in drinks.items():
-    print(f'{k}: {v}円')
-money = int(input('投入金額を入力してください'))
-changes = [5000,2000,1000,500,100,50,10]
+# for k,v in drinks.items():
+#     print(f'{k}: {v}円')
+# money = int(input('投入金額を入力してください'))
+types = [5000,2000,1000,500,100,50,10]
 
 def func_change(money):
+    # おつりの辞書型配列
     result = {}
-    for ch in changes:
-        if money >= ch:
-            while True:
-                tmp = money - ch
-                if tmp < 0:
-                    break
-                else:
-                    money = tmp
-                    if ch in result:
-                        result[ch]= result[ch]+1
-                    else:
-                        result[ch] = 1
+    flg = True
+    while flg:
+        for type in types:
+            if money >= type:
+                # お金の枚数
+                num = money//type
+                # おつり
+                remain = money % type
+                result[type]= num
+                money = remain
+                if money == 0:
+                    flg = False
     print('おつり')
     for k,v in result.items():
         if k == 5000 or k == 2000 or k == 1000:
@@ -25,7 +26,8 @@ def func_change(money):
         else:
             print(f'{k}円玉: {v}枚')
 
-
+func_change(3230)
+exit()
 def func_print_items():
     for k,v in drinks.items():
         print(f'{k}: {v}円')

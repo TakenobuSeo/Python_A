@@ -10,6 +10,13 @@ class Holiday(Base):
     holi_text = Column('holi_text', String(20))
 
 
+#テーブル：Holidayの定義
+class MstHinmoku(Base):
+    __tablename__ = 'mst_hinmoku'
+    id = Column('id', String(10), primary_key = True)
+    name= Column('name', String(20))
+
+
 def main(args):
     """
     メイン関数

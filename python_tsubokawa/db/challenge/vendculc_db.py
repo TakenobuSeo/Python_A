@@ -45,7 +45,7 @@ def add_money(input_money):
     for money in money_array.keys():
         money_array[money] = math.floor(input_money / money)
         # 出した分を引く
-        # input_money -= money_array[money] * money
+        input_money -= money_array[money] * money
 
         in_money_num = money_array[money] * 1
 

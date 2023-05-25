@@ -5,14 +5,18 @@ from database import session
 from prchasesales_tables import MstHinmoku, TblZaiko
 
 class ID():
-    '''IDを扱うためのクラス'''
+    '''
+    IDを扱うためのクラス
+    '''
     id: str
 
     def __init__(self, id):
         self.id = id
 
 class Hinmoku(ID):
-    '''品目データを扱うためのクラス'''
+    '''
+    品目データを扱うためのクラス
+    '''
     name:str
 
     def __init__(self, id: str, name: str):
@@ -20,7 +24,9 @@ class Hinmoku(ID):
         self.name = name
 
     def registration_item(self) -> None:
-        '''品目データを登録する'''
+        '''
+        品目データを登録する
+        '''
 
         item = len(session.query(MstHinmoku).filter_by(id=self.id).all())
         if item > 0:
@@ -37,7 +43,9 @@ class Hinmoku(ID):
         print(f"品目マスタに{self.id}, {self.name}を登録しました")
 
 class Transaction(ID):
-    '''仕入れデータ、売上テータを扱うためのクラス'''
+    '''
+    仕入れデータ、売上テータを扱うためのクラス
+    '''
     unit: str
     unit_price: int
     change_stock_num: int
@@ -49,13 +57,17 @@ class Transaction(ID):
         self.change_stock_num = change_stock
 
     def get_current_zaiko(self) -> TblZaiko:
-        '''自身の商品IDの現在のデータを返す'''
+        '''
+        自身の商品IDの現在のデータを返す
+        '''
         current_zaiko = session.query(TblZaiko).filter_by(id=self.id, unit=self.unit, unitprice=self.unit_price).first()
         return current_zaiko
         
 
     def process_arrival(self) -> None:
-        '''仕入れデータを登録する'''
+        '''
+        仕入れデータを登録する
+        '''
 
         zaiko = self.get_current_zaiko()
         if zaiko:
@@ -73,7 +85,9 @@ class Transaction(ID):
         print(f"品目{self.id}（単価：{self.unit_price}円）を{self.change_stock_num}{self.unit}仕入れました")
 
     def process_sales(self):
-        '''売上データを登録する'''
+        '''
+        売上データを登録する
+        '''
 
         zaiko = self.get_current_zaiko()
         if not zaiko:
@@ -93,7 +107,9 @@ class Transaction(ID):
         print(f"品目{self.id}（単価：{self.unit_price}円）を{self.change_stock_num}{self.unit}売上げました")
 
 def print_all_zaiko():
-    '''在庫がある品目について出力する'''
+    '''
+    在庫がある品目について出力する
+    '''
     zaiko = session.query(TblZaiko.id, MstHinmoku.name, TblZaiko.stock, TblZaiko.unit, TblZaiko.unitprice).join(MstHinmoku, MstHinmoku.id == TblZaiko.id).filter(TblZaiko.stock > 0).all()
     for item in zaiko:
         print(f"品目{item.id}（{item.name}）の在庫：{item.stock}{item.unit}（単価：{item.unitprice}円）")

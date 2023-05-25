@@ -27,13 +27,14 @@ def update_stock(update_id, update_stock):
     session.commit()
 
 # Messageテーブルのデータ数を返す処理
-def get_Message_num():
-    msg_num = session.query(Message.seq).count()
-    return msg_num
+# def get_Message_num():
+#     msg_num = session.query(Message.seq).count()
+#     return msg_num
 
 
-def insert_message(msg_num, price, number, ):
+def insert_message(price, number):
 #Messageの追加処理
+    msg_num = session.query(Message.seq).count()
     #連番付与
     seq = msg_num + 1
     message_text = f'{price}の残枚数が{number}枚になりました。確認してください。' 

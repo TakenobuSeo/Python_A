@@ -162,7 +162,7 @@ while flg:
                             # 足りないお金の種類を格納
                             not_enough_money = show_money(money_stock)
                             for key in not_enough_money.keys():
-                                # 足りないお金についてメッセージを送信
+                                # 足りないお金についてメッセージを送信処理
                                 insert_msg(key, not_enough_money[key])
 
                             flg = False

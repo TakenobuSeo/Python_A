@@ -9,6 +9,7 @@ vend_item = {
 }
 
 money_array = {
+            10000 : 0,
             5000 : 0, 
             2000 :0,
             1000 : 0,
@@ -20,6 +21,9 @@ money_array = {
 
 #お金の在庫を格納する辞書データ
 money_stock = {}
+
+# 足りないお金を入れる変数
+not_enough_money = None
 
 flg = True
 # flg2 = True
@@ -37,6 +41,8 @@ show_stock = funcs.show_stock
 update_stock = funcs.update_stock
 show_money = funcs.show_money
 update_money = funcs.update_money
+insert_msg = funcs.insert_message
+
 
 
 def add_money(input_money):
@@ -142,15 +148,7 @@ while flg:
                     #買った商品の在庫を減らす処理
                     update_stock(buy_item)
 
-                #お金の在庫を更新する処理
 
-                    #お金の在庫を取得し辞書型にして返す処理
-                    show_money(money_stock)
-
-                    #お釣りの分、減少する処理
-
-
-                    #投入金額分、増加する処理
 
 
                     if input_money != 0 and min_price <= input_money:
@@ -160,6 +158,13 @@ while flg:
                         else:
                             out_change(input_money)
                             add_money(init_input_money)
+
+                            # 足りないお金の種類を格納
+                            not_enough_money = show_money(money_stock)
+                            for key in not_enough_money.keys():
+                                # 足りないお金についてメッセージを送信処理
+                                insert_msg(key, not_enough_money[key])
+
                             flg = False
                             break
                     else:
@@ -167,6 +172,11 @@ while flg:
                         out_change(input_money)
                         flg = False
                         add_money(init_input_money)
+                        # 足りないお金を格納
+                        not_enough_money = show_money(money_stock)
+                        for key in not_enough_money.keys():
+                            # 足りないお金についてメッセージを送信
+                            insert_msg(key, not_enough_money[key])
                         break
                 else:
                     #商品の金額よりも投入金額が小さい場合
@@ -180,21 +190,6 @@ while flg:
                 continue
 
 
-            # #以下コピペ
-            # #所持金が最安価格よりも高い場合
-            # while input_money != 0 and min_price <= input_money:
-            #         is_continue = input('続けて購入しますか(Y/N)')
-            #         if is_continue == 'Y':
-            #             buyItem()
-
-            #         # 続けて購入しない、または、投入金額が少ない場合のお釣りを出す処理
-            #         else:
-            #             print('残金が足りないよ')
-            #             # お釣りを出す処理
-            #             out_change(input_money)
-
-            #             flg = False
-            #             break
             
 
 

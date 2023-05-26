@@ -23,13 +23,16 @@ def show_money(money_stock):
     money_datas = session.query(Money.price, Money.number).all()
     for money_data in money_datas:
         # お金の在庫を辞書型で取得
-        money_stock[money_data.price] = money_data.number
+
+        # お金の在庫が10枚以下の時に足りないお金(10000札以外)を取得してくる
+        if money_data.number <= 10 and money_data.price != 10000:
+            money_stock[money_data.price] = money_data.number
     
     return money_stock
 
-# money_stock = {}        
+money_stock = {}     
 
-# print(show_money(money_stock))
+print(show_money(money_stock))
 
 
 def test(update_name):
@@ -58,7 +61,8 @@ def update_money(update_price, update_number):
     session.add(money)
     session.commit()
 
-# update_money(500,1)
+# update_money(5000,1)
+# update_money(10000,10)
 
 
 def update_stock(update_name, update_stock=-1):
